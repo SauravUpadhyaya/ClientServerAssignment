@@ -1,0 +1,57 @@
+  <definitions
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://localhost:3000/part-service"
+    targetNamespace="http://localhost:3000/part-service"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+  >
+    <types>
+      <schema targetNamespace="http://localhost:3000/part-service" xmlns="http://www.w3.org/2001/XMLSchema">
+        <element name="partRequest">
+          <complexType>
+            <sequence>
+              <element name="partNumber" type="string" />
+              <element name="price" type="float" />
+              <element name="deliveryDate" type="string" />
+            </sequence>
+          </complexType>
+        </element>
+        <element name="partResponse">
+          <complexType>
+            <sequence>
+              <element name="success" type="boolean" />
+              <element name="message" type="string" />
+            </sequence>
+          </complexType>
+        </element>
+      </schema>
+    </types>
+    <message name="insertPartRequest">
+      <part name="parameters" element="tns:partRequest" />
+    </message>
+    <message name="insertPartResponse">
+      <part name="parameters" element="tns:partResponse" />
+    </message>
+    <portType name="PartServicePortType">
+      <operation name="insertPart">
+        <input message="tns:insertPartRequest" />
+        <output message="tns:insertPartResponse" />
+      </operation>
+    </portType>
+    <binding name="PartServiceBinding" type="tns:PartServicePortType">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+      <operation name="insertPart">
+        <soap:operation soapAction="http://localhost:3000/part-service/insertPart" />
+        <input>
+          <soap:body use="literal" />
+        </input>
+        <output>
+          <soap:body use="literal" />
+        </output>
+      </operation>
+    </binding>
+    <service name="PartService">
+      <port name="PartServicePort" binding="tns:PartServiceBinding">
+        <soap:address location="http://localhost:3000/part-service" />
+      </port>
+    </service>
+  </definitions>

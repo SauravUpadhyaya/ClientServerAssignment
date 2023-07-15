@@ -1,0 +1,131 @@
+# describing structure, endpoints, request/response formats of API
+# Reference: https://spec.openapis.org/oas/v3.1.0
+openapi: 3.0.0
+info:
+  title: Car Shop API
+  version: 1.0.0
+paths:
+  /cars:
+    post:
+      summary: Add a new car to the shop
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '201':
+          description: Car added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+  /cars/{id}:
+    put:
+      summary: Update a car in the shop
+      parameters:
+        - name: id
+          in: path
+          description: ID of the car to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+      responses:
+        '200':
+          description: Car updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+  /cars/{id}:
+    get:
+      summary: Get a car in the shop
+      parameters:
+        - name: id
+          in: path
+          description: ID of the car to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Car retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '404':
+          description: Car not found
+  /cars:
+    get:
+      summary: Get all cars in the shop
+      responses:
+        '200':
+          description: Cars retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+  /cars/{id}:
+    delete:
+      summary: Remove a car from the shop
+      parameters:
+        - name: id
+          in: path
+          description: ID of the car to remove
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Car removed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '404':
+          description: Car not found
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        id:
+          type: string
+        vin:
+          type: string
+        plateNumber:
+          type: string
+        state:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        year:
+          type: integer
+        ownersName:
+          type: string
+        ownersAddress:
+          type: string
+        DLNumber:
+          type: string
+        problemDescription:
+          type: string
+        timeInShop:
+          type: string
+        workerNames:
+          type: string
+
+
+  
+
