@@ -1,0 +1,11 @@
+GET http://localhost:8000/part/PART-1
+
+
+POST http://localhost:8000/part
+Content-Type: application/json
+
+{
+  "partNumber": "PART-1",
+  "price": 0.99,
+  "deliveryDate": "2023-07-29"
+}
