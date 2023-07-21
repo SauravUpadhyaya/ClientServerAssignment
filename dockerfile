@@ -21,7 +21,7 @@ EXPOSE 3000
 CMD [ "npm", "start" ]
 
 
-# COPY soap-server.js package.json package-lock.json /app/
+
 
 # SOAP server Dockerfile
 FROM node:14
@@ -32,7 +32,7 @@ COPY soap-server.js package.json package-lock.json /app/
 RUN npm install
 
 CMD [ "node", "soap-server.js" ]
-# CMD [ "npm", "start" ]
+
 
 # REST server Dockerfile
 FROM node:14
@@ -43,4 +43,3 @@ COPY rest-server.js package.json package-lock.json /app/
 RUN npm install
 
 CMD [ "node", "rest-server.js" ]
-# CMD [ "npm", "start" ]

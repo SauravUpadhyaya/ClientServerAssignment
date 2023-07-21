@@ -1,57 +1,93 @@
-  <definitions
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:tns="http://localhost:3000/part-service"
-    targetNamespace="http://localhost:3000/part-service"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-  >
-    <types>
-      <schema targetNamespace="http://localhost:3000/part-service" xmlns="http://www.w3.org/2001/XMLSchema">
-        <element name="partRequest">
-          <complexType>
-            <sequence>
-              <element name="partNumber" type="string" />
-              <element name="price" type="float" />
-              <element name="deliveryDate" type="string" />
-            </sequence>
-          </complexType>
-        </element>
-        <element name="partResponse">
-          <complexType>
-            <sequence>
-              <element name="success" type="boolean" />
-              <element name="message" type="string" />
-            </sequence>
-          </complexType>
-        </element>
-      </schema>
-    </types>
-    <message name="insertPartRequest">
-      <part name="parameters" element="tns:partRequest" />
-    </message>
-    <message name="insertPartResponse">
-      <part name="parameters" element="tns:partResponse" />
-    </message>
-    <portType name="PartServicePortType">
-      <operation name="insertPart">
-        <input message="tns:insertPartRequest" />
-        <output message="tns:insertPartResponse" />
-      </operation>
-    </portType>
-    <binding name="PartServiceBinding" type="tns:PartServicePortType">
-      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
-      <operation name="insertPart">
-        <soap:operation soapAction="http://localhost:3000/part-service/insertPart" />
-        <input>
-          <soap:body use="literal" />
-        </input>
-        <output>
-          <soap:body use="literal" />
-        </output>
-      </operation>
-    </binding>
-    <service name="PartService">
-      <port name="PartServicePort" binding="tns:PartServiceBinding">
-        <soap:address location="http://localhost:3000/part-service" />
-      </port>
-    </service>
-  </definitions>
+<definitions
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://localhost:8001/part-service"
+  targetNamespace="http://localhost:8001/part-service"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+>
+  <types>
+    <schema targetNamespace="http://localhost:8001/part-service" xmlns="http://www.w3.org/2001/XMLSchema">
+      <!-- Existing schema elements -->
+      <element name="GetPartPriceRequest">
+        <complexType>
+          <sequence>
+            <element name="partNumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetPartPriceResponse">
+        <complexType>
+          <sequence>
+            <element name="partNumber" type="string" />
+            <element name="price" type="float" />
+            <element name="deliveryDate" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertPartRequest">
+        <complexType>
+          <sequence>
+            <element name="partNumber" type="string" />
+            <element name="price" type="float" />
+            <element name="deliveryDate" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="InsertPartResponse">
+        <complexType>
+          <sequence>
+            <element name="success" type="boolean" />
+            <element name="message" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <message name="GetPartPriceRequest">
+    <part name="parameters" element="tns:GetPartPriceRequest" />
+  </message>
+  <message name="GetPartPriceResponse">
+    <part name="parameters" element="tns:GetPartPriceResponse" />
+  </message>
+  <message name="InsertPartRequest">
+    <part name="parameters" element="tns:InsertPartRequest" />
+  </message>
+  <message name="InsertPartResponse">
+    <part name="parameters" element="tns:InsertPartResponse" />
+  </message>
+  <portType name="PartServicePortType">
+    <operation name="GetPartPrice">
+      <input message="tns:GetPartPriceRequest" />
+      <output message="tns:GetPartPriceResponse" />
+    </operation>
+    <operation name="InsertPart">
+      <input message="tns:InsertPartRequest" />
+      <output message="tns:InsertPartResponse" />
+    </operation>
+  </portType>
+  <binding name="PartServiceBinding" type="tns:PartServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetPartPrice">
+      <soap:operation soapAction="http://localhost:8001/part-service/GetPartPrice" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="InsertPart">
+      <soap:operation soapAction="http://localhost:8001/part-service/InsertPart" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PartService">
+    <port name="PartPort" binding="tns:PartServiceBinding">
+      <soap:address location="http://localhost:8001/soap" />
+    </port>
+  </service>
+</definitions>
